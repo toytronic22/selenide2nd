@@ -1,21 +1,67 @@
 plugins {
-    id 'java-library'
+    id 'java'
+    id 'io.qameta.allure' version '2.10.0'
 }
 
-repositories {
-    mavenCentral()
-}
+group 'guru.qa'
+version '1.0-SNAPSHOT'
 
-dependencies {
-    testImplementation (
-            "com.codeborne:selenide:6.10.3",
-            "org.junit.jupiter:junit-jupiter:5.9.1")
-}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-test {
+repositories {
+    mavenCentral()
+}
+allure {
+    report {
+        version.set("2.19.0")
+    }
+    adapter { // отвечает за появление папочки build/allure-results
+        aspectjWeaver.set(true) //обработка аннотации @Step
+        frameworks {
+            junit5 { //название фреймворка
+                adapterVersion.set("2.19.0") //версия интеграции фреймворка и Allure
+            }
+        }
+    }
+}
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
     useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // Selenide
+    testImplementation(
+            'io.qameta.allure:allure-selenide:2.19.0',
+            "com.codeborne:selenide:6.9.0",
+            "org.junit.jupiter:junit-jupiter:5.9.1",
+            "org.slf4j:slf4j-simple:1.7.32")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.3")
+
+    // JUnit 5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+
+}
+
+test {
+    systemProperties += System.properties
+    useJUnitPlatform {}
 }
