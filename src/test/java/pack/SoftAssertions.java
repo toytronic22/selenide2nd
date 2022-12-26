@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 
-public class Solutions {
+public class SoftAssertions {
     @Test
     public void paragraphCanBeFoundTest() {
         Configuration.browserSize = "1920x1080";
