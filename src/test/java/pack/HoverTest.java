@@ -10,7 +10,7 @@ import static io.qameta.allure.Allure.step;
 public class HoverTest {
     @Test
     void hoverSolutionsTest() {
-        sleep(5000);
+        sleep(4000);
         step("Перейти на сайт github", () -> {
             open("https://github.com/");
         });
