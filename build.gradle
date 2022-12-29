@@ -47,9 +47,8 @@ compileTestJava {
 }
 
 dependencies {
-    // Selenide
     testImplementation(
-            'io.qameta.allure:allure-selenide:2.19.0',
+            'io.qameta.allure:allure-selenide:2.18.1.19.0',
             "com.codeborne:selenide:6.9.0",
             "org.junit.jupiter:junit-jupiter:5.8.1",
             "org.slf4j:slf4j-simple:1.7.32")
